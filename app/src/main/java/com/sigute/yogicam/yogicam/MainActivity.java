@@ -1,7 +1,6 @@
 package com.sigute.yogicam.yogicam;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,8 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
-
 
 
 public class MainActivity extends Activity {
@@ -21,7 +18,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new CameraFragment())
                     .commit();
         }
     }
@@ -49,9 +46,9 @@ public class MainActivity extends Activity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class CameraFragment extends Fragment {
 
-        public PlaceholderFragment() {
+        public CameraFragment() {
         }
 
         @Override
