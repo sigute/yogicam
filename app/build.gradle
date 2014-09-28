@@ -1,5 +1,12 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    mavenCentral()
+    maven {
+        url "https://repo.commonsware.com.s3.amazonaws.com"
+    }
+}
+
 android {
     compileSdkVersion 20
     buildToolsVersion "20.0.0"
@@ -20,5 +27,6 @@ android {
 }
 
 dependencies {
+    compile 'com.commonsware.cwac:camera:0.6.+'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
