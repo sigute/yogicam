@@ -1,17 +1,22 @@
 package com.sigute.yogicam.yogicam;
 
 import android.app.Activity;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.commonsware.cwac.camera.CameraFragment;
-import com.commonsware.cwac.camera.SimpleCameraHost;
 
 public class MainActivity extends Activity {
 
     private final String CAMERA_FRAGMENT_TAG = "camera_fragment_tag";
+
+    Handler mHandler;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +32,45 @@ public class MainActivity extends Activity {
         //Set the CameraHost
         YogiCamCameraHost cameraHost = new YogiCamCameraHost(this);
         f.setHost(cameraHost);
+
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.bip);
+        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
 
-    public void takePicture(View v) {
-        if (v == findViewById(R.id.take_pictures_button)) {
-            CameraFragment f = (CameraFragment) getFragmentManager().findFragmentByTag(CAMERA_FRAGMENT_TAG);
-            f.takePicture();
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mHandler.removeCallbacks(mRunnable);
+    }
+
+    public void takePictureButtonClicked(View v) {
+        mHandler = new Handler();
+        mHandler.postDelayed(mRunnable, 5000);
+    }
+
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            playSound();
+            //wait 1 second
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    takePicture();
+                }
+            }, 1000);
+
+            mHandler.postDelayed(mRunnable, 5000);
         }
+    };
+
+    private void playSound() {
+        mp.start();
+    }
+
+    private void takePicture() {
+        CameraFragment f = (CameraFragment) getFragmentManager().findFragmentByTag(CAMERA_FRAGMENT_TAG);
+        f.takePicture();
     }
 
     @Override
