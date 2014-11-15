@@ -51,16 +51,32 @@ public class MainActivity extends Activity {
     private Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
-            playSound();
-            //wait 1 second
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    playSound();
+                }
+            }, 0);
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    playSound();
+                }
+            }, 1000);
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    playSound();
+                }
+            }, 2000);
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     takePicture();
                 }
-            }, 1000);
+            }, 3000);
 
-            mHandler.postDelayed(mRunnable, 5000);
+            mHandler.postDelayed(mRunnable, 10000);
         }
     };
 
