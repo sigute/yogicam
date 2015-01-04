@@ -16,20 +16,17 @@ public class YogiCamCameraHost extends SimpleCameraHost {
     }
 
     @Override
-    protected String getPhotoFilename()
-    {
+    protected String getPhotoFilename() {
         return "YogiCam-" + super.getPhotoFilename();
     }
 
     @Override
-    protected java.io.File getPhotoDirectory()
-    {
+    protected java.io.File getPhotoDirectory() {
         return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/YogiCam");
     }
 
     @Override
-    public boolean scanSavedImage()
-    {
+    public boolean scanSavedImage() {
         return true;
     }
 }
