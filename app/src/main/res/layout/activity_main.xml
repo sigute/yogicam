@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Start"
+            android:text="@string/button_start_taking_pictures"
             android:onClick="takePictureButtonClicked"/>
     </LinearLayout>
 </RelativeLayout>

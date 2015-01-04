@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.commonsware.cwac.camera.CameraFragment;
 
@@ -17,11 +18,15 @@ public class MainActivity extends Activity {
 
     Handler mHandler;
     MediaPlayer mp;
+    Button takePictureButton;
+    volatile boolean takingPictures;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        takePictureButton = (Button) findViewById(R.id.take_pictures_button);
 
         //Create the CameraFragment and add it to the layout
         CameraFragment f = new CameraFragment();
@@ -35,6 +40,8 @@ public class MainActivity extends Activity {
 
         mp = MediaPlayer.create(getApplicationContext(), R.raw.bip);
         mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        takingPictures = false;
     }
 
     @Override
@@ -44,8 +51,27 @@ public class MainActivity extends Activity {
     }
 
     public void takePictureButtonClicked(View v) {
+        if (v == takePictureButton) {
+            if (!takingPictures) {
+                startTakingPictures();
+            } else {
+                stopTakingPictures();
+            }
+        }
+    }
+
+    public void startTakingPictures() {
         mHandler = new Handler();
         mHandler.postDelayed(mRunnable, 5000);
+        takePictureButton.setText(R.string.button_stop_taking_pictures);
+        takingPictures = true;
+    }
+
+    public void stopTakingPictures() {
+        //stops the sounds and taking of pictures
+        mHandler.removeCallbacksAndMessages(null);
+        takePictureButton.setText(R.string.button_start_taking_pictures);
+        takingPictures = false;
     }
 
     private Runnable mRunnable = new Runnable() {
@@ -106,5 +132,11 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopTakingPictures();
     }
 }
