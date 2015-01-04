@@ -1,4 +1,4 @@
-package com.sigute.yogicam.yogicam;
+package com.github.sigute.yogicam;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

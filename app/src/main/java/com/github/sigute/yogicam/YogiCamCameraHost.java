@@ -1,4 +1,4 @@
-package com.sigute.yogicam.yogicam;
+package com.github.sigute.yogicam;
 
 import android.content.Context;
 import android.os.Environment;
