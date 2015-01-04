@@ -42,6 +42,8 @@ public class MainActivity extends Activity {
         mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
         takingPictures = false;
+
+        mHandler = new Handler();
     }
 
     @Override
@@ -61,7 +63,6 @@ public class MainActivity extends Activity {
     }
 
     public void startTakingPictures() {
-        mHandler = new Handler();
         mHandler.postDelayed(mRunnable, 5000);
         takePictureButton.setText(R.string.button_stop_taking_pictures);
         takingPictures = true;
