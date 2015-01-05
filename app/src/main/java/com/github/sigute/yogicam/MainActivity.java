@@ -16,10 +16,10 @@ public class MainActivity extends Activity {
 
     private final String CAMERA_FRAGMENT_TAG = "camera_fragment_tag";
 
-    Handler mHandler;
-    MediaPlayer mp;
-    Button takePictureButton;
-    volatile boolean takingPictures;
+    private Handler mHandler;
+    private MediaPlayer mp;
+    private  Button takePictureButton;
+    private volatile boolean takingPictures;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,20 +62,20 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void startTakingPictures() {
+    private  void startTakingPictures() {
         mHandler.postDelayed(mRunnable, 5000);
         takePictureButton.setText(R.string.button_stop_taking_pictures);
         takingPictures = true;
     }
 
-    public void stopTakingPictures() {
+    private  void stopTakingPictures() {
         //stops the sounds and taking of pictures
         mHandler.removeCallbacksAndMessages(null);
         takePictureButton.setText(R.string.button_start_taking_pictures);
         takingPictures = false;
     }
 
-    private Runnable mRunnable = new Runnable() {
+    private final Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
             mHandler.postDelayed(new Runnable() {

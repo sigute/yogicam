@@ -10,7 +10,7 @@ import java.io.File;
 /**
  * Created by sigute on 28/09/2014.
  */
-public class YogiCamCameraHost extends SimpleCameraHost {
+class YogiCamCameraHost extends SimpleCameraHost {
     public YogiCamCameraHost(Context context) {
         super(context);
     }
