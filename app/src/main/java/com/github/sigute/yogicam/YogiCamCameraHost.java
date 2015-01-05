@@ -8,7 +8,9 @@ import com.commonsware.cwac.camera.SimpleCameraHost;
 import java.io.File;
 
 /**
- * Created by sigute on 28/09/2014.
+ * Extension to SimpleCameraHost, to allow changing some defaults.
+ *
+ * @author sigute
  */
 class YogiCamCameraHost extends SimpleCameraHost {
     public YogiCamCameraHost(Context context) {

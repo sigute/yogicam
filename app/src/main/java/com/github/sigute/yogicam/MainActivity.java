@@ -12,6 +12,11 @@ import android.widget.Button;
 
 import com.commonsware.cwac.camera.CameraFragment;
 
+/**
+ * Main activity. 
+ *
+ * @author sigute
+ */
 public class MainActivity extends Activity {
 
     private final String CAMERA_FRAGMENT_TAG = "camera_fragment_tag";
