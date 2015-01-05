@@ -13,7 +13,7 @@ import android.widget.Button;
 import com.commonsware.cwac.camera.CameraFragment;
 
 /**
- * Main activity. 
+ * Main activity.
  *
  * @author sigute
  */
@@ -21,9 +21,9 @@ public class MainActivity extends Activity {
 
     private final String CAMERA_FRAGMENT_TAG = "camera_fragment_tag";
 
-    private Handler mHandler;
-    private MediaPlayer mp;
-    private  Button takePictureButton;
+    private Handler handler;
+    private MediaPlayer mediaPlayer;
+    private  Button takePicturesButton;
     private volatile boolean takingPictures;
 
     @Override
@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        takePictureButton = (Button) findViewById(R.id.take_pictures_button);
+        takePicturesButton = (Button) findViewById(R.id.take_pictures_button);
 
         //Create the CameraFragment and add it to the layout
         CameraFragment f = new CameraFragment();
@@ -43,22 +43,22 @@ public class MainActivity extends Activity {
         YogiCamCameraHost cameraHost = new YogiCamCameraHost(this);
         f.setHost(cameraHost);
 
-        mp = MediaPlayer.create(getApplicationContext(), R.raw.bip);
-        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.bip);
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
         takingPictures = false;
 
-        mHandler = new Handler();
+        handler = new Handler();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mHandler.removeCallbacks(mRunnable);
+        handler.removeCallbacks(mRunnable);
     }
 
     public void takePictureButtonClicked(View v) {
-        if (v == takePictureButton) {
+        if (v == takePicturesButton) {
             if (!takingPictures) {
                 startTakingPictures();
             } else {
@@ -68,52 +68,52 @@ public class MainActivity extends Activity {
     }
 
     private  void startTakingPictures() {
-        mHandler.postDelayed(mRunnable, 5000);
-        takePictureButton.setText(R.string.button_stop_taking_pictures);
+        handler.postDelayed(mRunnable, 5000);
+        takePicturesButton.setText(R.string.button_stop_taking_pictures);
         takingPictures = true;
     }
 
     private  void stopTakingPictures() {
         //stops the sounds and taking of pictures
-        mHandler.removeCallbacksAndMessages(null);
-        takePictureButton.setText(R.string.button_start_taking_pictures);
+        handler.removeCallbacksAndMessages(null);
+        takePicturesButton.setText(R.string.button_start_taking_pictures);
         takingPictures = false;
     }
 
     private final Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
-            mHandler.postDelayed(new Runnable() {
+            handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     playSound();
                 }
             }, 0);
-            mHandler.postDelayed(new Runnable() {
+            handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     playSound();
                 }
             }, 1000);
-            mHandler.postDelayed(new Runnable() {
+            handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     playSound();
                 }
             }, 2000);
-            mHandler.postDelayed(new Runnable() {
+            handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     takePicture();
                 }
             }, 3000);
 
-            mHandler.postDelayed(mRunnable, 10000);
+            handler.postDelayed(mRunnable, 10000);
         }
     };
 
     private void playSound() {
-        mp.start();
+        mediaPlayer.start();
     }
 
     private void takePicture() {
