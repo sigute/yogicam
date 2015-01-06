@@ -7,4 +7,7 @@
     <string name="button_start_taking_pictures">Start</string>
     <string name="button_stop_taking_pictures">Stop</string>
 
+    <string name="label_pictures_counter">Pictures taken:</string>
+    <string name="placeholder_text_pictures_counter">0</string>
+
 </resources>

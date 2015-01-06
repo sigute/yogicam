@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.commonsware.cwac.camera.CameraFragment;
 
@@ -23,8 +24,11 @@ public class MainActivity extends Activity {
 
     private Handler handler;
     private MediaPlayer mediaPlayer;
-    private  Button takePicturesButton;
+    private Button takePicturesButton;
     private volatile boolean takingPictures;
+
+    private TextView picturesTakenCounter;
+    private int picturesTaken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         takePicturesButton = (Button) findViewById(R.id.take_pictures_button);
+        picturesTakenCounter = (TextView) findViewById(R.id.pictures_taken_counter);
 
         //Create the CameraFragment and add it to the layout
         CameraFragment f = new CameraFragment();
@@ -70,6 +75,8 @@ public class MainActivity extends Activity {
     private  void startTakingPictures() {
         handler.postDelayed(mRunnable, 5000);
         takePicturesButton.setText(R.string.button_stop_taking_pictures);
+        picturesTaken = 0;
+        picturesTakenCounter.setText(String.valueOf(picturesTaken));
         takingPictures = true;
     }
 
@@ -77,6 +84,8 @@ public class MainActivity extends Activity {
         //stops the sounds and taking of pictures
         handler.removeCallbacksAndMessages(null);
         takePicturesButton.setText(R.string.button_start_taking_pictures);
+        picturesTaken = 0;
+        picturesTakenCounter.setText(String.valueOf(picturesTaken));
         takingPictures = false;
     }
 
@@ -119,6 +128,8 @@ public class MainActivity extends Activity {
     private void takePicture() {
         CameraFragment f = (CameraFragment) getFragmentManager().findFragmentByTag(CAMERA_FRAGMENT_TAG);
         f.takePicture();
+        picturesTaken++;
+        picturesTakenCounter.setText(String.valueOf(picturesTaken));
     }
 
     @Override
