@@ -84,7 +84,6 @@ public class MainActivity extends Activity {
         //stops the sounds and taking of pictures
         handler.removeCallbacksAndMessages(null);
         takePicturesButton.setText(R.string.button_start_taking_pictures);
-        picturesTaken = 0;
         picturesTakenCounter.setText(String.valueOf(picturesTaken));
         takingPictures = false;
     }
