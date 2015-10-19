@@ -20,7 +20,7 @@ import com.commonsware.cwac.camera.CameraFragment;
  */
 public class MainActivity extends Activity {
 
-    private final String CAMERA_FRAGMENT_TAG = "camera_fragment_tag";
+    private final String CAMERA_FRAGMENT_TAG = "CAMERA_FRAGMENT_TAG";
 
     private Handler handler;
     private MediaPlayer mediaPlayer;
@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
 
         //Set the CameraHost
         YogiCamCameraHost cameraHost = new YogiCamCameraHost(this);
-        f.setHost(cameraHost);
+        f.setCameraHost(cameraHost);
 
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.bip);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -57,9 +57,9 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        handler.removeCallbacks(mRunnable);
+    protected void onPause() {
+        super.onPause();
+        stopTakingPictures();
     }
 
     public void takePictureButtonClicked(View v) {
@@ -129,30 +129,5 @@ public class MainActivity extends Activity {
         f.takePicture();
         picturesTaken++;
         picturesTakenCounter.setText(String.valueOf(picturesTaken));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        stopTakingPictures();
     }
 }
